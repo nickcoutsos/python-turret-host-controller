@@ -35,7 +35,6 @@ class Turret(object):
         self._device = None
         self._rockets = rockets
         self._state = STOP
-        self._primed = False
         self._connect()
 
     def __del__(self):
@@ -83,19 +82,8 @@ class Turret(object):
 
     def fire(self):
         self.send(FIRE)
-        self._primed = False
-        self.prime()
 
-    def prime(self):
-        if self._primed:
-            return
 
-        logger.debug('%r priming', self)
-        self.send(FIRE, 0.75)
-        self._primed = True
-        logger.debug('%r primed', self)
-
- 
 class InteractiveTurret(Turret):
 
     def aim(self, yaw, pitch):
